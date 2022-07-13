@@ -17,13 +17,12 @@ product             /product         ext4      ro     wait,slotselect,avb,logica
 /product_image	  emmc	/dev/block/mapper/product                 flags=backup=1;flashimg=1;display="Product Image";slotselect
 
 # Core Partitions
-#/metadata             ext4    /dev/block/by-name/md_udc         flags=backup=1;display="metadata"
-#/md_udc		    emmc	/dev/block/by-name/md_udc   flags=backup=1
-/metadata	    emmc	/dev/block/by-name/metadata flags=backup=1
+/metadata         ext4     /dev/block/by-name/md_udc               noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount  
 
 # Common partition
-/data            f2fs    /dev/block/by-name/userdata           flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
-#/data           ext4    /dev/block/by-name/userdata           flags=encryptable=/dev/block/by-name/metadata
+/data            f2fs    /dev/block/by-name/userdata           noatime,nosuid,nodev,discard,noflush_merge,reserve_root=134217,resgid=1065,inlinecrypt,tran_gc wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_encryption
+/dev/block/by-name/misc        /misc       emmc    defaults                                                                                                       defaults
+
 /boot            emmc    /dev/block/by-name/boot               flags=backup=1;display="Boot";flashimg=1;slotselect
 /dtbo            emmc    /dev/block/by-name/dtbo               flags=backup=1;display="Dtbo";flashimg=1;slotselect
 /persist         ext4    /dev/block/by-name/persist            flags=backup=1;display="Persist";mounttodecrypt
