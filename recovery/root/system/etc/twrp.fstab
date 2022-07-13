@@ -1,0 +1,49 @@
+#<src>                                             <mnt_point>            <type>        <mnt_flags and options>                                                                  <fs_mgr_flags>
+system_a                                             /system              ext4                ro                                                                            wait,avb=vbmeta_system,first_stage_mount
+system_ext_a                                         /system_ext          ext4                ro                                                                            wait,avb=first_stage_mount
+vendor_a                                             /vendor              ext4                ro                                                                            wait,avb,first_stage_mount,
+product_a                                            /product             ext4                ro                                                                            wait,avb,first_stage_mount,
+
+/dev/block/platform/bootdevice/by-name/md_udc /metadata ext4 noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
+/dev/block/platform/bootdevice/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,noflush_merge,reserve_root=134217,resgid=1065,inlinecrypt,tran_gc wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_encryption
+                                                                   defaults
+/product                ext4        /dev/block/mapper/product_a                             flags=backup=1;display="Product ext4"
+/product_image 	        emmc		/dev/block/mapper/product_a                             flags=backup=1;display="Product Image";flashimg=1
+/super          	    emmc    	/dev/block/platform/bootdevice/by-name/super            flags=backup=1;display="Super_image";flashimg=1
+/system      	        ext4		/dev/block/mapper/system_a                              flags=backup=1;display="System ext4"
+/system_image           emmc		/dev/block/mapper/system_a                              flags=backup=1;display="System Image";flashimg=1
+/system_ext_image       emmc		/dev/block/mapper/system_ext_a	                        flags=backup=1;display="system ext Image";flashimg=1
+/vendor                 ext4        /dev/block/mapper/vendor_a                              flags=backup=1;display="Vendor ext4"
+/vendor_image	        emmc		/dev/block/mapper/vendor_a                              flags=backup=1;display="Vendor Image";flashimg=1
+
+# Other partitions
+
+  
+/boot            emmc    /dev/block/platform/bootdevice/by-name/boot_a               flags=backup=1;display="Boot";flashimg=1
+/bootloader      emmc    /dev/block/platform/bootdevice/by-name/lk_a                   flags=backup=1;display="Bootloader (lk)"
+/bootloader2     emmc    /dev/block/platform/bootdevice/by-name/lk2_a                  flags=backup=1;subpartitionof=/bootloader
+/boot_para	     emmc	 /dev/block/platform/bootdevice/by-name/boot_para            flags=display="boot_para";backup=1
+/dtbo            emmc    /dev/block/platform/bootdevice/by-name/dtbo_a                 flags=backup=1;display="Dtbo"
+/gz              emmc    /dev/block/platform/bootdevice/by-name/gz_a                  flags=display="gz";backup=1
+/logo		     emmc	 /dev/block/platform/bootdevice/by-name/logo_a                 flags=display="logo";backup=1
+/md1img		     emmc	 /dev/block/platform/bootdevice/by-name/md1img_a               flags=display="Modem";backup=1;flashimg=1
+/nvcfg		     ext4	 /dev/block/platform/bootdevice/by-name/nvcfg                flags=display="NvCfg";backup=1
+/nvdata		     ext4	 /dev/block/platform/bootdevice/by-name/nvdata               flags=display="NvData";backup=1
+/nvram		     emmc	 /dev/block/platform/bootdevice/by-name/nvram                flags=display="NvRam";backup=1;flashimg=1
+/para		     emmc	 /dev/block/platform/bootdevice/by-name/para                 flags=display="para";backup=1
+/persist         ext4    /dev/block/platform/bootdevice/by-name/persist              flags=backup=1;display="Persist"
+/persistent	     emmc	 /dev/block/platform/bootdevice/by-name/frp                  flags=display="frp";backup=1
+/proinfo	     emmc	 /dev/block/platform/bootdevice/by-name/proinfo              flags=display="Proinfo";backup=1
+/protect_f	     ext4	 /dev/block/platform/bootdevice/by-name/protect1             flags=display="Protect";backup=1
+/protect_s	     ext4	 /dev/block/platform/bootdevice/by-name/protect2             flags=backup=1;subpartitionof=/protect_f
+/recovery	     emmc	 /dev/block/platform/bootdevice/by-name/recovery_a             flags=display="Recovery";backup=1;flashimg=1
+/scp		     emmc	 /dev/block/platform/bootdevice/by-name/scp_a                 flags=display="scp1";backup=1         
+/spmfw		     emmc	 /dev/block/platform/bootdevice/by-name/spmfw_a                flags=display="Spm";backup=1
+/sspm		     emmc	 /dev/block/platform/bootdevice/by-name/sspm_a               flags=display="sspm_1";backup=1
+/tee		     emmc	 /dev/block/platform/bootdevice/by-name/tee_a                 flags=display="Tee";backup=1;flashimg=1        
+/vbmeta 	     emmc	 /dev/block/platform/bootdevice/by-name/vbmeta_a               flags=display="vbmeta";backup=1;flashimg=1
+/vbmeta_system   emmc    /dev/block/platform/bootdevice/by-name/vbmeta_system_a      flags=backup=1;display="vbmeta_system";flashimg=1
+/vbmeta_vendor   emmc    /dev/block/platform/bootdevice/by-name/vbmeta_vendor_a        flags=backup=1;display="vbmeta_vendor";flashimg=1
+
+/external_sd    auto     /dev/block/mmcblk1p1  /dev/block/mmcblk1                    flags=display="External_SDcard";storage;wipeingui;removable;fsflags="utf8"
+/usbotg        auto      /dev/block/sda1  /dev/block/sda                             flags=display="Usb_Otg";storage;wipeingui;removable;fsflags="utf8"
