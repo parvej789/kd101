@@ -7,14 +7,18 @@ system              /system          ext4      ro     wait,slotselect,avb=vbmeta
 system_ext          /system_ext      ext4      ro     wait,slotselect,avb,logical,first_stage_mount
 vendor              /vendor          ext4      ro     wait,slotselect,avb,logical,first_stage_mount
 product             /product         ext4      ro     wait,slotselect,avb,logical,first_stage_mount
-
+/system_root		     ext4	     /dev/block/mapper/system               flags=backup=1;wipeingui;slotselect;display="System ext4"
+/system_ext	         ext4	     /dev/block/mapper/system_ext           flags=backup=1;wipeingui;slotselect;display="System_ext ext4"
+/vendor              ext4      /dev/block/mapper/vendor               flags=backup=1;wipeingui;slotselect;display="vendor ext4"
+/product             ext4      /dev/block/mapper/product              flags=backup=1;wipeingui;slotselect;display="product ext4"
 
 # Images
-/super          	    emmc    	/dev/block/platform/bootdevice/by-name/super            flags=backup=1;display="Super_image";flashimg=1
+/super          	 emmc    	/dev/block/platform/bootdevice/by-name/super            flags=backup=1;display="Super_image";flashimg=1
 /system_image	    emmc  	/dev/block/mapper/system                flags=backup=1;flashimg=1;display="System Image";slotselect
 /system_ext       emmc    /dev/block/mapper/system_ext            flags=backup=1;flashimg=1;display="System_ext Image";slotselect
 /vendor_image	    emmc  	/dev/block/mapper/vendor                flags=backup=1;flashimg=1;display="Vendor Image";slotselect
 /product_image	  emmc	/dev/block/mapper/product                 flags=backup=1;flashimg=1;display="Product Image";slotselect
+
 
 # Core Partitions
 /metadata         ext4     /dev/block/by-name/md_udc               noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount  
