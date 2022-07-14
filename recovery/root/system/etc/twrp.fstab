@@ -24,7 +24,7 @@ product             /product         ext4      ro     wait,slotselect,avb,logica
 /metadata         ext4     /dev/block/by-name/md_udc               noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount  
 
 # Common partition
-/data            f2fs    /dev/block/by-name/userdata           noatime,nosuid,nodev,discard,noflush_merge,reserve_root=134217,resgid=1065,inlinecrypt,tran_gc wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_encryption                                                                                              
+/data            f2fs    /dev/block/by-name/userdata           noatime,nosuid,nodev,discard,noflush_merge,reserve_root=134217,resgid=1065,inlinecrypt,tran_gc wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2,keydirectory=/metadata/vold/metadata_fsverity                                                                                              
 /boot            emmc    /dev/block/by-name/boot               flags=backup=1;display="Boot";flashimg=1;slotselect
 /dtbo            emmc    /dev/block/by-name/dtbo               flags=backup=1;display="Dtbo";flashimg=1;slotselect
 /persist         ext4    /dev/block/by-name/persist            flags=backup=1;display="Persist";mounttodecrypt
