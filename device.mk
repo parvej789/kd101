@@ -35,11 +35,6 @@ PRODUCT_PACKAGES += \
     update_verifier \
     update_engine_sideload
 
-# fastbootd
-PRODUCT_PACKAGES += \
-    fastbootd
-    
- 
 # health Hal
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl
